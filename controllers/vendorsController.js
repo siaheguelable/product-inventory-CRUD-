@@ -1,4 +1,5 @@
 const vendorsModel = require("../models/vendorsModel");
+const { validateVendor } = require("../validators/vendorValidator");
 
 // Get all vendors
 exports.getAllVendors = async (req, res) => {
@@ -26,6 +27,11 @@ exports.getVendorById = async (req, res) => {
 // Create a new vendor
 exports.createVendor = async (req, res) => {
   try {
+    const errors = validateVendor(req.body);
+
+    if (errors.length) {
+      return res.status(400).json({ message: "Validation failed", errors });
+    }
     const newVendor = new vendorsModel(req.body);
     await newVendor.save();
     res.status(201).json(newVendor);
@@ -37,6 +43,11 @@ exports.createVendor = async (req, res) => {
 // Update a vendor by ID
 exports.updateVendor = async (req, res) => {
   try {
+    const errors = validateVendor(req.body);
+    if (errors.length) {
+      return res.status(400).json({ message: "Validation failed", errors });
+    }
+
     const vendor = await vendorsModel.findByIdAndUpdate(
       req.params.id,
       req.body,

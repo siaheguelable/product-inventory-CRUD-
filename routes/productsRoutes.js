@@ -27,16 +27,27 @@ routes.get("/", productsController.getAllProducts);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:        # <- mark required fields
+ *               - name
+ *               - price
+ *               - stock
  *             properties:
  *               name:
  *                 type: string
+ *                 example: Laptop   # <- example value shows up in the form
  *               price:
  *                 type: number
+ *                 example: 1200
  *               stock:
  *                 type: integer
+ *                 example: 10
  *     responses:
  *       201:
  *         description: Product created successfully
+ *       400:
+ *         description: Validation failed
+ *       500:
+ *         description: Internal Server Error
  */
 
 // Create a new product

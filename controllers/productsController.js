@@ -1,5 +1,5 @@
 const productsModel = require("../models/productsModel");
-const vendorsModel = require("../models/vendorsModel");
+const { validateProduct } = require("../validators/productValidator");
 
 // Get all products
 exports.getAllProducts = async (req, res) => {
@@ -28,6 +28,18 @@ exports.getProductById = async (req, res) => {
 // Create a new product
 exports.createProduct = async (req, res) => {
   try {
+    // const product = {
+    //   name: req.body.name,
+    //   price: req.body.price,
+    //   stock: req.body.stock,
+    // };
+
+    const errors = validateProduct(req.body);
+
+    if (errors.length) {
+      return res.status(400).json({ message: "Validation failed", errors });
+    }
+
     const newProduct = new productsModel(req.body);
     await newProduct.save();
     if (!newProduct) {
@@ -43,17 +55,30 @@ exports.createProduct = async (req, res) => {
 // Update a product by ID
 exports.updateProduct = async (req, res) => {
   try {
+    const errors = validateProduct(req.body);
+    if (errors.length > 0) {
+      return res.status(400).json({
+        message: "Validation failed",
+        errors,
+      });
+    }
+
     const product = await productsModel.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true }
+      { new: true, runValidators: true }
     );
+
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ message: "Error updating product", error });
+    res.status(500).json({
+      message: "Error updating product",
+      error: error.message || error,
+    });
   }
 };
 // Delete a product by ID
