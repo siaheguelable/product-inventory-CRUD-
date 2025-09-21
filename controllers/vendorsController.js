@@ -34,7 +34,9 @@ exports.createVendor = async (req, res) => {
     }
     const newVendor = new vendorsModel(req.body);
     await newVendor.save();
-    res.status(201).json(newVendor);
+    res
+      .status(201)
+      .json({ message: "Vendor created successfully", data: newVendor });
   } catch (error) {
     res.status(500).json({ message: "Error creating vendor", error });
   }
@@ -56,7 +58,9 @@ exports.updateVendor = async (req, res) => {
     if (!vendor) {
       return res.status(404).json({ message: "Vendor not found" });
     }
-    res.status(200).json(vendor);
+    res
+      .status(200)
+      .json({ message: "Vendor updated successfully", data: vendor });
   } catch (error) {
     res.status(500).json({ message: "Error updating vendor", error });
   }
@@ -69,7 +73,7 @@ exports.deleteVendor = async (req, res) => {
     if (!vendor) {
       return res.status(404).json({ message: "Vendor not found" });
     }
-    res.status(204).send();
+    res.json({ message: "Vendor deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting vendor", error });
   }

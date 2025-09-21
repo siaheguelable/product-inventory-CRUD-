@@ -78,7 +78,8 @@ routes.get("/:id", productsController.getProductById);
 
 // Update a product by ID
 
-/** * @swagger
+/**
+ * @swagger
  * /products/{id}:
  *  put:
  *   summary: Update a product by ID
