@@ -28,6 +28,45 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "product",
+            "description": "Product to create",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "price",
+                "description",
+                "category",
+                "stock",
+                "vendor"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "stock": {
+                  "type": "integer"
+                },
+                "vendor": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -72,6 +111,43 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "product",
+            "description": "Product data to update",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "price",
+                "description",
+                "category",
+                "stock",
+                "vendor"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "stock": {
+                  "type": "integer"
+                },
+                "vendor": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -126,6 +202,45 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "vendor",
+            "description": "Vendor to create",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "address",
+                "contact"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "contact": {
+                  "type": "object",
+                  "required": [
+                    "email",
+                    "phone"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -170,6 +285,43 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "vendor",
+            "description": "Vendor data to update",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "address",
+                "contact"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "contact": {
+                  "type": "object",
+                  "required": [
+                    "email",
+                    "phone"
+                  ],
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
         ],
         "responses": {

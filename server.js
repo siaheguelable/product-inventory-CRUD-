@@ -1,5 +1,5 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+
 const productsRoutes = require("./routes/productsRoutes");
 const vendorsRoutes = require("./routes/vendorsRoutes");
 const swaggerUi = require("swagger-ui-express");

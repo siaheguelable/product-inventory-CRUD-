@@ -33,7 +33,7 @@ exports.createProduct = async (req, res) => {
     //   price: req.body.price,
     //   stock: req.body.stock,
     // };
-
+    console.log(req.body);
     const errors = validateProduct(req.body);
 
     if (errors.length) {
