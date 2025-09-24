@@ -39,8 +39,26 @@
       <input type="text" id="vendor" name="vendor" required>
     </div>
 
-    <button type="submit">Save Product</button>
-    <button type="reset">Get the list of products</button>
+  <button type="submit">Save Product</button>
+  <a href="/products" class="btn btn-secondary" style="margin-left:10px;">Get the list of products</a>
   </form>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    <% products.forEach(function(product) { %>
+      <tr>
+        <td><%= product.name %></td>
+        <td>
+          <a href="/products/<%= product._id %>/edit">Edit</a>
+          <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
 </body>
 </html>

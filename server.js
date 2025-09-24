@@ -1,8 +1,11 @@
+const Product = require("./models/productsModel");
+const Vendor = require("./models/vendorsModel"); // adjust path if needed
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
 const path = require("path");
+require("dotenv").config(); // Load environment variables
 
 const productsRoutes = require("./routes/productsRoutes");
 const vendorsRoutes = require("./routes/vendorsRoutes");
@@ -68,15 +71,29 @@ app.get("/", (req, res) => {
 });
 
 // Render vendor page
-app.get("/Pages/vendor", (req, res) => {
-  res.render("Pages/vendor");
+app.get("/Pages/vendor", async (req, res) => {
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  try {
+    const vendors = await Vendor.find();
+    res.render("Pages/vendor", { vendors });
+  } catch (err) {
+    res.status(500).send("Error loading vendors");
+  }
 });
 
 // Render product page
-// ...existing code...
-// Render product page
-app.get("/Pages/product", (req, res) => {
-  res.render("Pages/product");
+app.get("/Pages/product", async (req, res) => {
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  try {
+    const products = await Product.find();
+    res.render("Pages/product", { products });
+  } catch (err) {
+    res.status(500).send("Error loading products");
+  }
 });
 
 // Routes
@@ -93,12 +110,19 @@ app.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   (req, res) => {
     // Successful authentication
-    res.redirect("/Pages/dashboard");
+    if (req.isAuthenticated && req.isAuthenticated()) {
+      res.redirect("/Pages/dashboard");
+    } else {
+      res.redirect("/login");
+    }
   }
 );
 
 app.get("/Pages/dashboard", (req, res) => {
-  res.render("dashboard", { user: req.user });
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    return res.redirect("/login");
+  }
+  res.render("Pages/dashboard", { user: req.user });
 });
 
 app.get("/logout", (req, res) => {
