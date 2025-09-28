@@ -6,6 +6,7 @@ const doc = {
     description: "API documentation generated with swagger-autogen",
     version: "1.0.0",
   },
+  //the link is placed here
   host: process.env.RENDER_HOST || "localhost:3000",
   schemes: process.env.RENDER_SCHEME ? [process.env.RENDER_SCHEME] : ["http"],
   basePath: "/",
