@@ -78,3 +78,14 @@ exports.deleteVendor = async (req, res) => {
     res.status(500).json({ message: "Error deleting vendor", error });
   }
 };
+
+// Show edit form
+exports.editVendorForm = async (req, res) => {
+  const vendor = await vendorsModel.findById(req.params.id);
+  res.render("Pages/editVendor", { vendor });
+};
+// Handle update
+exports.updateVendor = async (req, res) => {
+  await vendorsModel.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect("/Pages/vendor");
+};

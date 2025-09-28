@@ -6,11 +6,11 @@
 	</div>
 	<div>
 		<label for="email">Email:</label>
-		<input type="email" id="email" name="email" required>
+		<input type="email" id="email" name="contact[email]" required>
 	</div>
 	<div>
 		<label for="phone">Phone:</label>
-		<input type="text" id="phone" name="phone" required>
+		<input type="text" id="phone" name="contact[phone]" required>
 	</div>
 	<div>
 		<label for="address">Address:</label>
@@ -32,6 +32,7 @@
         <td>
           <a href="/vendors/<%= vendor._id %>/edit">Edit</a>
           <form action="/vendors/<%= vendor._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <input type="hidden" name="_method" value="DELETE">	
             <button type="submit">Delete</button>
           </form>
         </td>

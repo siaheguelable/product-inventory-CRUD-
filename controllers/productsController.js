@@ -28,6 +28,7 @@ exports.getProductById = async (req, res) => {
 // Create a new product
 exports.createProduct = async (req, res) => {
   try {
+    req.body.price = Number(req.body.price); // Convert price to number
     // const product = {
     //   name: req.body.name,
     //   price: req.body.price,
@@ -92,4 +93,16 @@ exports.deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error deleting product", error });
   }
+};
+
+// Show edit form
+exports.editProductForm = async (req, res) => {
+  const product = await productsModel.findById(req.params.id);
+  res.render("Pages/editProduct", { product });
+};
+
+// Handle update
+exports.updateProduct = async (req, res) => {
+  await productsModel.findByIdAndUpdate(req.params.id, req.body);
+  res.redirect("/Pages/product");
 };

@@ -13,6 +13,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output.json");
 const cors = require("cors");
 const expressLayouts = require("express-ejs-layouts");
+const methodOverride = require("method-override");
 
 const connectDB = require("./DB/connection");
 
@@ -59,6 +60,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("layout", "../Views/Pages/layout");
@@ -99,6 +101,10 @@ app.get("/Pages/product", async (req, res) => {
 // Routes
 app.use("/products", productsRoutes);
 app.use("/vendors", vendorsRoutes);
+// After middleware, before routes
+// app.post("/vendors/:id", (req, res) => {
+//   res.send("POST received, method-override not working");
+// });
 
 // Auth routes
 app.get(

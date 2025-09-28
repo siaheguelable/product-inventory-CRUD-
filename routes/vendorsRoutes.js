@@ -143,4 +143,8 @@ routes.put("/:id", vendorsController.updateVendor);
 
 // Delete a vendor by ID
 routes.delete("/:id", vendorsController.deleteVendor);
+
+// Edit vendor form
+routes.get("/:id/edit", vendorsController.editVendorForm);
+routes.post("/:id/edit", vendorsController.updateVendor); // or use PUT with method-override
 module.exports = routes;
