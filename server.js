@@ -39,7 +39,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID || "GITHUB_CLIENT_ID",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "GITHUB_CLIENT_SECRET",
-      callbackURL: "http://localhost:3000/auth/github/callback",
+      callbackURL:
+        "https://product-inventory-crud.onrender.com/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       // Here you would look up or create the user in your DB
