@@ -74,6 +74,12 @@ app.get("/", (req, res) => {
   res.render("Accounts/login");
 });
 
+app.get("/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/");
+  });
+});
+
 // Render vendor page
 app.get("/Pages/vendor", async (req, res) => {
   if (!req.isAuthenticated || !req.isAuthenticated()) {
