@@ -40,6 +40,7 @@ passport.use(
       clientID: process.env.GITHUB_CLIENT_ID || "GITHUB_CLIENT_ID",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "GITHUB_CLIENT_SECRET",
       callbackURL:
+        process.env.GITHUB_CALLBACK_URL ||
         "https://product-inventory-crud.onrender.com/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
