@@ -1,7 +1,7 @@
 const productsModel = require("../models/productsModel");
 const { validateProduct } = require("../validators/productValidator");
 
-// Get all products
+// Get all products (API)
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await productsModel.find();
@@ -13,7 +13,8 @@ exports.getAllProducts = async (req, res) => {
     res.status(500).json({ message: "Error fetching products", error });
   }
 };
-// Get a product by ID
+
+// Get a product by ID (API)
 exports.getProductById = async (req, res) => {
   try {
     const product = await productsModel.findById(req.params.id);
@@ -25,16 +26,11 @@ exports.getProductById = async (req, res) => {
     res.status(500).json({ message: "Error fetching product", error });
   }
 };
-// Create a new product
+
+// Create a new product (API)
 exports.createProduct = async (req, res) => {
   try {
     req.body.price = Number(req.body.price); // Convert price to number
-    // const product = {
-    //   name: req.body.name,
-    //   price: req.body.price,
-    //   stock: req.body.stock,
-    // };
-    console.log(req.body);
     const errors = validateProduct(req.body);
 
     if (errors.length) {
@@ -53,9 +49,11 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ message: "Error creating product", error });
   }
 };
-// Update a product by ID
-exports.updateProduct = async (req, res) => {
+
+// Update a product by ID (API)
+exports.updateProductApi = async (req, res) => {
   try {
+    req.body.price = Number(req.body.price); // Convert price to number
     const errors = validateProduct(req.body);
     if (errors.length > 0) {
       return res.status(400).json({
@@ -82,7 +80,8 @@ exports.updateProduct = async (req, res) => {
     });
   }
 };
-// Delete a product by ID
+
+// Delete a product by ID (API)
 exports.deleteProduct = async (req, res) => {
   try {
     const product = await productsModel.findByIdAndDelete(req.params.id);
@@ -95,14 +94,15 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-// Show edit form
+// Show edit form (Web)
 exports.editProductForm = async (req, res) => {
   const product = await productsModel.findById(req.params.id);
   res.render("Pages/editProduct", { product });
 };
 
-// Handle update
-exports.updateProduct = async (req, res) => {
+// Handle update from form (Web)
+exports.updateProductForm = async (req, res) => {
+  req.body.price = Number(req.body.price); // Convert price to number
   await productsModel.findByIdAndUpdate(req.params.id, req.body);
   res.redirect("/Pages/product");
 };

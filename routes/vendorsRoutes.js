@@ -129,7 +129,7 @@ routes.post("/", vendorsController.createVendor);
  */
 
 // Update a vendor by ID
-routes.put("/:id", vendorsController.updateVendor);
+routes.put("/:id", vendorsController.updateVendorApi);
 
 /**
  * @swagger
@@ -146,5 +146,5 @@ routes.delete("/:id", vendorsController.deleteVendor);
 
 // Edit vendor form
 routes.get("/:id/edit", vendorsController.editVendorForm);
-routes.post("/:id/edit", vendorsController.updateVendor); // or use PUT with method-override
+routes.post("/:id/edit", vendorsController.updateVendorForm); // or use PUT with method-override
 module.exports = routes;

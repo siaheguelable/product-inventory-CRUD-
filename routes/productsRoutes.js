@@ -119,7 +119,7 @@ routes.get("/:id", productsController.getProductById);
  * 500:
  * description: Error updating product
  */
-routes.put("/:id", productsController.updateProduct);
+routes.put("/:id", productsController.updateProductApi);
 
 // Delete a product by ID
 /**
@@ -146,6 +146,6 @@ routes.delete("/:id", productsController.deleteProduct);
 
 // Edit product form
 routes.get("/:id/edit", productsController.editProductForm);
-routes.post("/:id/edit", productsController.updateProduct); // or use PUT with method-override
+routes.post("/:id/edit", productsController.updateProductForm); // or use PUT with method-override
 
 module.exports = routes;

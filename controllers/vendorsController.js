@@ -43,7 +43,7 @@ exports.createVendor = async (req, res) => {
 };
 
 // Update a vendor by ID
-exports.updateVendor = async (req, res) => {
+exports.updateVendorApi = async (req, res) => {
   try {
     const errors = validateVendor(req.body);
     if (errors.length) {
@@ -85,7 +85,7 @@ exports.editVendorForm = async (req, res) => {
   res.render("Pages/editVendor", { vendor });
 };
 // Handle update
-exports.updateVendor = async (req, res) => {
+exports.updateVendorForm = async (req, res) => {
   await vendorsModel.findByIdAndUpdate(req.params.id, req.body);
   res.redirect("/Pages/vendor");
 };
