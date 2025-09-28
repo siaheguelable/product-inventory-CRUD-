@@ -1,6 +1,7 @@
 <!-- filepath: c:\Users\curtis siahe\Documents\University Course\Webservice\product-inventory-CRUD-\Views\Pages\editProduct.ejs -->
 <h1>Edit Product</h1>
 <form action="/products/<%= product._id %>/edit" method="POST">
+  <input type="hidden" name="_method" value="PUT">
   <div>
     <label>Name:</label>
     <input type="text" name="name" value="<%= product.name %>" required>
